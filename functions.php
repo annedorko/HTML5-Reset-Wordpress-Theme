@@ -8,20 +8,20 @@
             require_once($locale_file);
 	
 	// Add RSS links to <head> section
-	automatic_feed_links();
+	add_theme_support( 'automatic-feed-links' );
 	
 	// Load jQuery
-	if ( !function_exists(core_mods) ) {
+	if ( !function_exists( 'core_mods' ) ) {
 		function core_mods() {
 			if ( !is_admin() ) {
 				wp_deregister_script('jquery');
-				wp_register_script('jquery', ("//ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"), false);
+				wp_register_script('jquery', ("http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"), false);
 				wp_enqueue_script('jquery');
 			}
 		}
-		core_mods();
+		add_filter( 'init', 'core_mods' );
 	}
-
+	
 	// Clean up the <head>
 	function removeHeadLinks() {
     	remove_action('wp_head', 'rsd_link');
